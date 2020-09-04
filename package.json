@@ -1,0 +1,25 @@
+{
+  "name": "agilite-react",
+  "version": "0.0.1",
+  "description": "",
+  "main": "lib/index.js",
+  "types": "lib",
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [],
+  "author": "Agilit-e",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "16.13.1",
+    "react-dom": "16.13.1"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.48",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "typescript": "4.0.2",
+    "@ant-design/icons": "4.2.2",
+    "antd": "4.6.1"
+  }
+}
