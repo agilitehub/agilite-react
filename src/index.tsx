@@ -117,12 +117,12 @@ export const AgiliteReact: React.SFC<ConfigProps> = props => {
               <div style={{ float: 'left', marginTop: '-23px', marginLeft: '20px' }}>
                 {props.config.toolbar.title}
               </div>
-              <div style={{ float: 'right', marginTop: '-23px', cursor: 'pointer' }} >
+              <div style={{ float: 'right', marginTop: '-23px', cursor: 'pointer', marginRight: '10px' }} >
                 {props.config.toolbar.customMenus.content}
               </div>
               <div>
                 {props.config.rightMenu.enabled ? (
-                  <MenuOutlined style={{ float: 'right', marginRight: '-40px', marginLeft: '50px', cursor: 'pointer' }} onClick={props.config.rightMenu.onOpen} />
+                  <MenuOutlined style={{ float: 'right', marginRight: props.config.toolbar.customMenus.content ? '-60px' : '-40px', marginLeft: '50px', cursor: 'pointer' }} onClick={props.config.rightMenu.onOpen} />
                 ) : null}
               </div>
             </div>
