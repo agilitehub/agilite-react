@@ -1,8 +1,6 @@
 import * as React from 'react'
-
 import { Layout, Tabs, Drawer, Menu } from 'antd'
 import { MenuOutlined } from '@ant-design/icons'
-
 import 'antd/dist/antd.css'
 
 const { Header } = Layout
