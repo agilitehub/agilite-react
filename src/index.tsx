@@ -3,7 +3,12 @@ import * as React from 'react'
 import { Layout, Tabs, Drawer, Menu } from 'antd'
 import { MenuOutlined } from '@ant-design/icons'
 
+import theme from './theme';
+
 import 'antd/dist/antd.css'
+
+import { LeftMenu } from './LeftMenu';
+import { RightMenu } from './RightMenu';
 
 const { Header } = Layout
 
@@ -18,24 +23,8 @@ interface ConfigProps {
       secondaryLight?: string,
       secondaryDark?: string
     },
-    leftMenu: {
-      enabled: boolean,
-      title: React.ReactNode,
-      menuItems: Array<MenuItem>,
-      visible: boolean,
-      onOpen: onLeftMenuOpen,
-      onClose: onLeftMenuClose,
-      handleMenuItemClick: onMenuItemClick,
-    },
-    rightMenu: {
-      enabled: boolean,
-      title: React.ReactNode,
-      menuItems: Array<MenuItem>,
-      visible: boolean,
-      onOpen: onRightMenuOpen,
-      onClose: onRightMenuClose,
-      handleMenuItemClick: onMenuItemClick,
-    },
+    leftMenu: leftMenu,
+    rightMenu: rightMenu,
     toolbar: {
       enabled: boolean,
       title: React.ReactNode | string,
@@ -95,6 +84,28 @@ interface MenuItem {
   title: React.ReactNode | string;
 }
 
+export interface leftMenu {
+  enabled: boolean,
+  title: React.ReactNode,
+  menuItems: Array<MenuItem>,
+  visible: boolean,
+  onOpen: onLeftMenuOpen,
+  onClose: onLeftMenuClose,
+  handleMenuItemClick: onMenuItemClick,
+  expandedMenuItems: Array<string>
+}
+
+export interface rightMenu {
+  enabled: boolean,
+  title: React.ReactNode,
+  menuItems: Array<MenuItem>,
+  visible: boolean,
+  onOpen: onRightMenuOpen,
+  onClose: onRightMenuClose,
+  handleMenuItemClick: onMenuItemClick,
+  expandedMenuItems: Array<string>
+}
+
 export const AgiliteReact: React.SFC<ConfigProps> = props => {
   return (
     <div className='App'>
@@ -104,8 +115,8 @@ export const AgiliteReact: React.SFC<ConfigProps> = props => {
             style={{
               height: '40px',
               fontSize: '13pt',
-              backgroundColor: props.config.theme.primary ? props.config.theme.primary : '#d32f2f',
-              color: props.config.theme.secondaryLight ? props.config.theme.secondaryLight : '#ffffff'
+              backgroundColor: props.config.theme.primary ? props.config.theme.primary : theme.primary,
+              color: props.config.theme.secondaryLight ? props.config.theme.secondaryLight : theme.secondaryLight
             }}
           >
             <div style={{ marginTop: '10px' }}>
@@ -130,153 +141,16 @@ export const AgiliteReact: React.SFC<ConfigProps> = props => {
         </Layout>
         : null}
         {props.config.leftMenu.enabled ? (
-          <Drawer
-            title={<div style={{ color: props.config.theme.secondaryLight ? props.config.theme.secondaryLight : '#ffffff' }}>{props.config.leftMenu.title}</div>}
-            placement='left'
-            closable={true}
-            width={300}
-            visible={props.config.leftMenu.visible}
-            onClose={props.config.leftMenu.onClose}
-            headerStyle={{
-              backgroundColor: props.config.theme.primary ? props.config.theme.primary : '#d32f2f'
-            }}
-          >
-            <Menu
-              onClick={props.config.leftMenu.handleMenuItemClick}
-              mode='inline'
-            >
-              {props.config.leftMenu.menuItems.map(child1 => {
-                if (child1.children && child1.children.length > 0) {
-                  return (
-                    <Menu.SubMenu
-                      key={child1.key}
-                      title={child1.title}
-                    >
-                      {child1.children.map(child2 => {
-                        if (child2.children && child2.children.length > 0) {
-                          return (
-                            <Menu.SubMenu
-                              key={child2.key}
-                              title={child2.title}
-                            >
-                              {child2.children.map(child3 => {
-                                if (child3.children && child3.children.length > 0) {
-                                  return (
-                                    <Menu.SubMenu
-                                      key={child3.key}
-                                      title={child3.title}
-                                    >
-                                      {child3.children.map(child4 => {
-                                        if (child4.children && child4.children.length > 0) {
-                                          return (
-                                            <Menu.SubMenu
-                                              key={child4.key}
-                                              title={child4.title}
-                                            >
-                                              {child4.children.map(child5 => {
-                                                return <Menu.Item key={child5.key}>{child5.title}</Menu.Item>
-                                              })}
-                                            </Menu.SubMenu>
-                                          )
-                                        } else {
-                                          return <Menu.Item key={child4.key}>{child4.title}</Menu.Item>
-                                        }
-                                      })}
-                                    </Menu.SubMenu>
-                                  )
-                                } else {
-                                  return <Menu.Item key={child3.key}>{child3.title}</Menu.Item>
-                                }
-                              })}
-                            </Menu.SubMenu>
-                          )
-                        } else {
-                          return <Menu.Item key={child2.key}>{child2.title}</Menu.Item>
-                        }
-                      })}
-                    </Menu.SubMenu>
-                  )
-                } else {
-                  return <Menu.Item key={child1.key}>{child1.title}</Menu.Item>
-                }
-              })}
-            </Menu>
-          </Drawer>
+          <LeftMenu
+            leftMenu={props.config.leftMenu}
+            theme={props.config.theme}
+          />
         ) : null}
         {props.config.rightMenu.enabled ? (
-          <Drawer
-          title={<div style={{ color: props.config.theme.secondaryLight ? props.config.theme.secondaryLight : '#ffffff' }}>{props.config.rightMenu.title}</div>}
-            placement='right'
-            closable={true}
-            width={300}
-            visible={props.config.rightMenu.visible}
-            onClose={props.config.rightMenu.onClose}
-            headerStyle={{
-              backgroundColor: props.config.theme.primary ? props.config.theme.primary : '#d32f2f',
-              color: props.config.theme.secondaryLight ? props.config.theme.secondaryLight : '#ffffff'
-            }}
-          >
-            <Menu
-              onClick={props.config.rightMenu.handleMenuItemClick}
-              mode='inline'
-            >
-              {props.config.rightMenu.menuItems.map(child1 => {
-                if (child1.children && child1.children.length > 0) {
-                  return (
-                    <Menu.SubMenu
-                      key={child1.key}
-                      title={child1.title}
-                    >
-                      {child1.children.map(child2 => {
-                        if (child2.children && child2.children.length > 0) {
-                          return (
-                            <Menu.SubMenu
-                              key={child2.key}
-                              title={child2.title}
-                            >
-                              {child2.children.map(child3 => {
-                                if (child3.children && child3.children.length > 0) {
-                                  return (
-                                    <Menu.SubMenu
-                                      key={child3.key}
-                                      title={child3.title}
-                                    >
-                                      {child3.children.map(child4 => {
-                                        if (child4.children && child4.children.length > 0) {
-                                          return (
-                                            <Menu.SubMenu
-                                              key={child4.key}
-                                              title={child4.title}
-                                            >
-                                              {child4.children.map(child5 => {
-                                                return <Menu.Item key={child5.key}>{child5.title}</Menu.Item>
-                                              })}
-                                            </Menu.SubMenu>
-                                          )
-                                        } else {
-                                          return <Menu.Item key={child4.key}>{child4.title}</Menu.Item>
-                                        }
-                                      })}
-                                    </Menu.SubMenu>
-                                  )
-                                } else {
-                                  return <Menu.Item key={child3.key}>{child3.title}</Menu.Item>
-                                }
-                              })}
-                            </Menu.SubMenu>
-                          )
-                        } else {
-                          return <Menu.Item key={child2.key}>{child2.title}</Menu.Item>
-                        }
-                      })}
-                    </Menu.SubMenu>
-                  )
-                } else {
-                  return <Menu.Item key={child1.key}>{child1.title}</Menu.Item>
-                }
-              })}
-            </Menu>
-          </Drawer>
+          <RightMenu
+            rightMenu={props.config.rightMenu}
+            theme={props.config.theme}
+          />
         ) : null}
       {props.config.tabNavigation.enabled ?
         <Tabs
@@ -319,14 +193,7 @@ export const AgiliteReact: React.SFC<ConfigProps> = props => {
 AgiliteReact.defaultProps = {
   config: {
     rootContent: <div>Root Content</div>,
-    theme: {
-      primary: '#d32f2f',
-      primaryLight: '#ff6659',
-      primaryDark: '#9a0007',
-      secondary: '#e0e0e0',
-      secondaryLight: '#ffffff',
-      secondaryDark: '#aeaeae'
-    },
+    theme,
     leftMenu: {
       title: 'Left Menu',
       enabled: true,
@@ -334,7 +201,8 @@ AgiliteReact.defaultProps = {
       visible: false,
       onOpen: () => {},
       onClose: () => {},
-      handleMenuItemClick: () => {}
+      handleMenuItemClick: () => {},
+      expandedMenuItems: []
     },
     rightMenu: {
       title: 'Right Menu',
@@ -343,7 +211,8 @@ AgiliteReact.defaultProps = {
       visible: false,
       onOpen: () => {},
       onClose: () => {},
-      handleMenuItemClick: () => {}
+      handleMenuItemClick: () => {},
+      expandedMenuItems: []
     },
     toolbar: {
       enabled: true,
