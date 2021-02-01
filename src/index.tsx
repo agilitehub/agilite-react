@@ -1,62 +1,15 @@
 import * as React from 'react'
-
-import { Layout, Tabs, Drawer, Menu } from 'antd'
+import { Layout, Tabs } from 'antd'
 import { MenuOutlined } from '@ant-design/icons'
 
-import theme from './theme';
-
+import { Theme, ThemeInterface } from './resources/theme'
+import { ModuleConfig, ModuleConfigInterface } from './resources/module-config'
 import 'antd/dist/antd.css'
 
-import { LeftMenu } from './LeftMenu';
-import { RightMenu } from './RightMenu';
+import { LeftMenu } from './components/LeftMenu'
+import { RightMenu } from './components/RightMenu'
 
 const { Header } = Layout
-
-interface ConfigProps {
-  config: {
-    rootContent: React.ReactNode,
-    theme: {
-      primary?: string,
-      primaryLight?: string,
-      primaryDark?: string,
-      secondary?: string,
-      secondaryLight?: string,
-      secondaryDark?: string
-    },
-    leftMenu: leftMenu,
-    rightMenu: rightMenu,
-    toolbar: {
-      enabled: boolean,
-      title: React.ReactNode | string,
-      customMenus: {
-        content: React.ReactNode,
-      }
-    },
-    tabNavigation: {
-      enabled: boolean,
-      rootTabKey: string,
-      rootTabTitle: React.ReactNode | string,
-      rootTabContent: React.ReactNode,
-      activeKey: string,
-      animated: boolean,
-      onTabChange: onTabChangeFunction,
-      onTabClose: onTabCloseFunction,
-      tabs: Array<{
-        key: string,
-        closeable: boolean,
-        title: string,
-        content: React.ReactNode,
-      }>
-    }
-  }
-}
-interface onTabChangeFunction {
-  (key: string): string | undefined | void
-}
-
-interface onTabCloseFunction {
-  (key: any, action: string): void | undefined
-}
 
 interface onLeftMenuOpen {
   (event: any): any
@@ -79,12 +32,12 @@ interface onMenuItemClick {
 }
 
 interface MenuItem {
-  key: string;
-  children?: Array<MenuItem>;
-  title: React.ReactNode | string;
+  key: string
+  children?: Array<MenuItem>
+  title: React.ReactNode | string
 }
 
-export interface leftMenu {
+export interface LeftMenuInterface {
   enabled: boolean,
   title: React.ReactNode,
   menuItems: Array<MenuItem>,
@@ -95,7 +48,7 @@ export interface leftMenu {
   expandedMenuItems: Array<string>
 }
 
-export interface rightMenu {
+export interface RightMenuInterface {
   enabled: boolean,
   title: React.ReactNode,
   menuItems: Array<MenuItem>,
@@ -106,7 +59,9 @@ export interface rightMenu {
   expandedMenuItems: Array<string>
 }
 
-export const AgiliteReact: React.SFC<ConfigProps> = props => {
+export const AgiliteReact: React.FunctionComponent<ModuleConfigInterface> = props => {
+  const RootContent: any = props.config.rootContent
+
   return (
     <div className='App'>
       {props.config.toolbar.enabled ?
@@ -115,8 +70,8 @@ export const AgiliteReact: React.SFC<ConfigProps> = props => {
             style={{
               height: '40px',
               fontSize: '13pt',
-              backgroundColor: props.config.theme.primary ? props.config.theme.primary : theme.primary,
-              color: props.config.theme.secondaryLight ? props.config.theme.secondaryLight : theme.secondaryLight
+              backgroundColor: props.config.theme.primary ? props.config.theme.primary : Theme.primary,
+              color: props.config.theme.secondaryLight ? props.config.theme.secondaryLight : Theme.secondaryLight
             }}
           >
             <div style={{ marginTop: '10px' }}>
@@ -167,7 +122,7 @@ export const AgiliteReact: React.SFC<ConfigProps> = props => {
             closable={false}
             tab={props.config.tabNavigation.rootTabTitle}
           >
-            {props.config.tabNavigation.rootTabContent}
+            <RootContent />
           </Tabs.TabPane>
           {props.config.tabNavigation.tabs.map(tab => {
             return (
@@ -182,55 +137,10 @@ export const AgiliteReact: React.SFC<ConfigProps> = props => {
           })}
         </Tabs>
         :
-        <>
-          {props.config.rootContent}
-        </>
+        <RootContent />
       }
     </div>
   )
 }
 
-AgiliteReact.defaultProps = {
-  config: {
-    rootContent: <div>Root Content</div>,
-    theme,
-    leftMenu: {
-      title: 'Left Menu',
-      enabled: true,
-      menuItems: [],
-      visible: false,
-      onOpen: () => {},
-      onClose: () => {},
-      handleMenuItemClick: () => {},
-      expandedMenuItems: []
-    },
-    rightMenu: {
-      title: 'Right Menu',
-      enabled: true,
-      menuItems: [],
-      visible: false,
-      onOpen: () => {},
-      onClose: () => {},
-      handleMenuItemClick: () => {},
-      expandedMenuItems: []
-    },
-    toolbar: {
-      enabled: true,
-      title: 'Agilit-e React',
-      customMenus: {
-        content: null
-      }
-    },
-    tabNavigation: {
-      enabled: true,
-      rootTabKey: 'home',
-      rootTabTitle: 'Home',
-      rootTabContent: <div>Welcome Home</div>,
-      activeKey: 'home',
-      animated: true,
-      tabs: [],
-      onTabChange: () => {},
-      onTabClose: () => {}
-    }
-  }
-}
+AgiliteReact.defaultProps = ModuleConfig

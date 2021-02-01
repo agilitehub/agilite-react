@@ -1,26 +1,26 @@
 import * as React from 'react'
 import { Drawer, Menu } from 'antd'
 
-import { leftMenu } from './index'
+import { LeftMenuInterface } from '../index'
 
-import theme from './theme';
+import { Theme, ThemeInterface } from '../resources/theme';
 
 interface props {
-  theme: any,
-  leftMenu: leftMenu
+  theme: ThemeInterface,
+  leftMenu: LeftMenuInterface
 }
 
 export const LeftMenu: React.SFC<props> = props => {
   return (
     <Drawer
-      title={<div style={{ color: props.theme.secondaryLight ? props.theme.secondaryLight : theme.secondaryLight }}>{props.leftMenu.title}</div>}
+      title={<div style={{ color: props.theme.secondaryLight ? props.theme.secondaryLight : Theme.secondaryLight }}>{props.leftMenu.title}</div>}
       placement='left'
       closable={true}
       width={300}
       visible={props.leftMenu.visible}
       onClose={props.leftMenu.onClose}
       headerStyle={{
-        backgroundColor: props.theme.primary ? props.theme.primary : theme.primary
+        backgroundColor: props.theme.primary ? props.theme.primary : Theme.primary
       }}
     >
       <Menu
