@@ -7,11 +7,12 @@ import { LeftMenu } from './components/LeftMenu'
 import { RightMenu } from './components/RightMenu'
 import { Tabs } from './components/Tabs'
 import { Toolbar } from './components/Toolbar'
+import { DefaultRootContent } from './components/DefaultRootContent'
 
 import 'antd/dist/antd.css'
 
 export const AgiliteReact: React.FunctionComponent<ModuleConfigInterface> = customProps => {
-  const RootContent: any = customProps.config.rootContent
+  const RootContent: any = customProps.config.rootContent ? customProps.config.rootContent : DefaultRootContent
   const props = merge(ModuleConfig, customProps)
 
   return (

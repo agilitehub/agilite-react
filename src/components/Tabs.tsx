@@ -2,9 +2,10 @@ import * as React from 'react'
 import { Tabs as AntdTabs } from 'antd'
 
 import { ModuleConfigInterface } from '../resources/module-config'
+import { DefaultRootContent } from './DefaultRootContent'
 
 export const Tabs: React.FunctionComponent<ModuleConfigInterface> = props => {
-  const RootContent: any = props.config.rootContent
+  const RootContent: any = props.config.rootContent ? props.config.rootContent : DefaultRootContent
 
   return (
     <AntdTabs
