@@ -1,8 +1,9 @@
 import { Theme, ThemeInterface } from './theme'
-import { LeftMenuInterface, RightMenuInterface } from '../index'
 import Enums from './enums'
 
 import { DefaultRootContent } from '../components/DefaultRootContent'
+import { RightMenuInterface } from '../components/RightMenu'
+import { LeftMenuInterface } from '../components/LeftMenu'
 
 interface TabChangeFunctionInterface {
   (key: string): string | undefined | void
@@ -51,7 +52,7 @@ export const ModuleConfig: ModuleConfigInterface = {
     theme: Theme,
     leftMenu: {
       title: 'Left Menu',
-      enabled: true,
+      enabled: false,
       menuItems: [],
       visible: false,
       onOpen: () => {},
@@ -61,7 +62,7 @@ export const ModuleConfig: ModuleConfigInterface = {
     },
     rightMenu: {
       title: 'Right Menu',
-      enabled: true,
+      enabled: false,
       menuItems: [],
       visible: false,
       onOpen: () => {},
@@ -77,7 +78,7 @@ export const ModuleConfig: ModuleConfigInterface = {
       }
     },
     tabNavigation: {
-      enabled: true,
+      enabled: false,
       rootTabKey: 'home',
       rootTabTitle: 'Home',
       activeKey: 'home',

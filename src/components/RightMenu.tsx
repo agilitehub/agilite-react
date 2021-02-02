@@ -1,12 +1,40 @@
 import * as React from 'react'
 import { Drawer, Menu } from 'antd'
 
-import { RightMenuInterface } from '../index'
 import { Theme, ThemeInterface } from '../resources/theme';
 
 interface props {
   theme: ThemeInterface,
   rightMenu: RightMenuInterface
+}
+
+interface onRightMenuOpen {
+  (event: any): any
+}
+
+interface onRightMenuClose {
+  (event: any): any
+}
+
+interface MenuItem {
+  key: string
+  children?: Array<MenuItem>
+  title: React.ReactNode | string
+}
+
+interface onMenuItemClick {
+  (event: any): any
+}
+
+export interface RightMenuInterface {
+  enabled: boolean,
+  title: React.ReactNode,
+  menuItems: Array<MenuItem>,
+  visible: boolean,
+  onOpen: onRightMenuOpen,
+  onClose: onRightMenuClose,
+  handleMenuItemClick: onMenuItemClick,
+  expandedMenuItems: Array<string>
 }
 
 export const RightMenu: React.SFC<props> = props => {
