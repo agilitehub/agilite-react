@@ -14,7 +14,7 @@ interface TabCloseFunctionInterface {
 }
 
 export interface ModuleConfigInterface {
-  config: {
+  state: {
     title: string,
     theme: ThemeInterface,
     rootContent: React.ReactNode,
@@ -46,7 +46,7 @@ export interface ModuleConfigInterface {
 }
 
 export const ModuleConfig: ModuleConfigInterface = {
-  config: {
+  state: {
     title: Enums.defaultAppName,
     rootContent: DefaultRootContent,
     theme: Theme,

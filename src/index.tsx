@@ -1,7 +1,8 @@
 import * as React from 'react'
-import merge from 'lodash/merge'
+import mergeWith from 'lodash/mergeWith'
+import isArray from 'lodash/isArray'
 
-import { ModuleConfig, ModuleConfigInterface } from './resources/module-config'
+import { ModuleConfig, ModuleConfigInterface } from './resources/module-state'
 
 import { LeftMenu } from './components/LeftMenu'
 import { RightMenu } from './components/RightMenu'
@@ -12,28 +13,31 @@ import { DefaultRootContent } from './components/DefaultRootContent'
 import 'antd/dist/antd.css'
 
 export const AgiliteReact: React.FunctionComponent<ModuleConfigInterface> = customProps => {
-  const RootContent: any = customProps.config.rootContent ? customProps.config.rootContent : DefaultRootContent
-  const props = merge(ModuleConfig, customProps)
+  const RootContent: any = customProps.state.rootContent ? customProps.state.rootContent : DefaultRootContent
+  const customizer = (objValue:any, srcValue:any) => {
+    if (isArray(objValue)) return srcValue
+  }
+  const props = mergeWith(ModuleConfig, customProps, customizer)
 
   return (
     <div className='App'>
-      {props.config.toolbar.enabled ?
-        <Toolbar config={props.config} />
+      {props.state.toolbar.enabled ?
+        <Toolbar state={props.state} />
         : null}
-        {props.config.leftMenu.enabled ? (
+        {props.state.leftMenu.enabled ? (
           <LeftMenu
-            leftMenu={props.config.leftMenu}
-            theme={props.config.theme}
+            leftMenu={props.state.leftMenu}
+            theme={props.state.theme}
           />
         ) : null}
-        {props.config.rightMenu.enabled ? (
+        {props.state.rightMenu.enabled ? (
           <RightMenu
-            rightMenu={props.config.rightMenu}
-            theme={props.config.theme}
+            rightMenu={props.state.rightMenu}
+            theme={props.state.theme}
           />
         ) : null}
-      {props.config.tabNavigation.enabled ?
-        <Tabs config={props.config} />
+      {props.state.tabNavigation.enabled ?
+        <Tabs state={props.state} />
         :
         <RootContent />
       }
