@@ -1,13 +1,13 @@
 import * as React from 'react'
-import { Layout } from 'antd'
-import { MenuOutlined } from '@ant-design/icons'
+import Layout from 'antd/es/layout'
+import MenuOutlined from '@ant-design/icons/MenuOutlined'
 
 import { ModuleConfigInterface } from '../resources/module-state'
 import { Theme } from '../resources/theme'
 
 const { Header } = Layout
 
-export const Toolbar: React.SFC<ModuleConfigInterface> = props => {
+const Toolbar: React.SFC<ModuleConfigInterface> = props => {
   return (
     <Layout>
       <Header
@@ -40,3 +40,5 @@ export const Toolbar: React.SFC<ModuleConfigInterface> = props => {
     </Layout>
   )
 }
+
+export default Toolbar

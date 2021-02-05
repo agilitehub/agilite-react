@@ -1,5 +1,6 @@
 import * as React from 'react'
-import { Drawer, Menu } from 'antd'
+import Drawer from 'antd/es/drawer'
+import Menu from 'antd/es/menu'
 
 import { Theme, ThemeInterface } from '../resources/theme';
 
@@ -37,7 +38,7 @@ export interface RightMenuInterface {
   expandedMenuItems: Array<string>
 }
 
-export const RightMenu: React.SFC<props> = props => {
+const RightMenu: React.SFC<props> = props => {
   return (
     <Drawer
       title={<div style={{ color: props.theme.secondaryLight ? props.theme.secondaryLight : Theme.secondaryLight }}>{props.rightMenu.title}</div>}
@@ -115,3 +116,5 @@ export const RightMenu: React.SFC<props> = props => {
       </Drawer>
   )
 }
+
+export default RightMenu

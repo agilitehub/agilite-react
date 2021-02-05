@@ -1,7 +1,7 @@
 import { Theme, ThemeInterface } from './theme'
 import Enums from './enums'
 
-import { DefaultRootContent } from '../components/DefaultRootContent'
+import DefaultRootContent from '../components/DefaultRootContent'
 import { RightMenuInterface } from '../components/RightMenu'
 import { LeftMenuInterface } from '../components/LeftMenu'
 

@@ -4,15 +4,15 @@ import isArray from 'lodash/isArray'
 
 import { ModuleConfig, ModuleConfigInterface } from './resources/module-state'
 
-import { LeftMenu } from './components/LeftMenu'
-import { RightMenu } from './components/RightMenu'
-import { Tabs } from './components/Tabs'
-import { Toolbar } from './components/Toolbar'
-import { DefaultRootContent } from './components/DefaultRootContent'
+import LeftMenu from './components/LeftMenu'
+import RightMenu from './components/RightMenu'
+import CustomTabs from './components/Tabs'
+import Toolbar from './components/Toolbar'
+import DefaultRootContent from './components/DefaultRootContent'
 
 import 'antd/dist/antd.css'
 
-export const AgiliteReact: React.FunctionComponent<ModuleConfigInterface> = customProps => {
+const _AgiliteReact: React.FunctionComponent<ModuleConfigInterface> = customProps => {
   const RootContent: any = customProps.state.rootContent ? customProps.state.rootContent : DefaultRootContent
   const customizer = (objValue:any, srcValue:any) => {
     if (isArray(objValue)) return srcValue
@@ -37,7 +37,7 @@ export const AgiliteReact: React.FunctionComponent<ModuleConfigInterface> = cust
           />
         ) : null}
       {props.state.tabNavigation.enabled ?
-        <Tabs state={props.state} />
+        <CustomTabs state={props.state} />
         :
         <RootContent />
       }
@@ -45,4 +45,6 @@ export const AgiliteReact: React.FunctionComponent<ModuleConfigInterface> = cust
   )
 }
 
-AgiliteReact.defaultProps = ModuleConfig
+_AgiliteReact.defaultProps = ModuleConfig
+
+export const AgiliteReact = React.memo(_AgiliteReact)
