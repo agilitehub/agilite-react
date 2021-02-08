@@ -4,7 +4,7 @@ import Enums from './enums'
 import DefaultRootContent from '../components/DefaultRootContent'
 import { RightMenuInterface } from '../components/RightMenu'
 import { LeftMenuInterface } from '../components/LeftMenu'
-import { TabChangeFunctionInterface, TabCloseFunctionInterface } from '../../dist/resources/module-state.d';
+import { TabChangeFunctionInterface, TabCloseFunctionInterface } from '../components/TabNavigation';
 
 export interface ModuleConfigInterface {
   state: {

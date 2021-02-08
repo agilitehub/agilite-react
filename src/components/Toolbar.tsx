@@ -30,7 +30,7 @@ const _Toolbar: React.SFC<ToolbarInterface & ThemeInterface & LeftMenuInterface 
         <div style={{ marginTop: '10px' }}>
           <div>
             {props.leftMenuEnabled ? (
-              <MenuOutlined style={{ float: 'left', marginLeft: '-30px', cursor: 'pointer' }} onClick={props.onOpenLeftMenu} />
+              <MenuOutlined style={{ float: 'left', marginLeft: '-30px', cursor: 'pointer' }} onClick={props.onLeftMenuOpen} />
             ) : null}
           </div>
           <div style={{ float: 'left', marginTop: '-23px', marginLeft: '20px' }}>
@@ -41,7 +41,7 @@ const _Toolbar: React.SFC<ToolbarInterface & ThemeInterface & LeftMenuInterface 
           </div>
           <div>
             {props.rightMenuEnabled ? (
-              <MenuOutlined style={{ float: 'right', marginRight: props.customMenus.content ? '-60px' : '-40px', marginLeft: '50px', cursor: 'pointer' }} onClick={props.onOpenRightMenu} />
+              <MenuOutlined style={{ float: 'right', marginRight: props.customMenus.content ? '-60px' : '-40px', marginLeft: '50px', cursor: 'pointer' }} onClick={props.onRightMenuOpen} />
             ) : null}
           </div>
         </div>
