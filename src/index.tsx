@@ -6,14 +6,14 @@ import { ModuleConfig, ModuleConfigInterface } from './resources/module-state'
 
 import LeftMenu from './components/LeftMenu'
 import RightMenu from './components/RightMenu'
-import CustomTabs from './components/Tabs'
+import TabNavigation from './components/TabNavigation'
 import Toolbar from './components/Toolbar'
 import DefaultRootContent from './components/DefaultRootContent'
 
 import 'antd/dist/antd.css'
 
 const AgiliteReact: React.FunctionComponent<ModuleConfigInterface> = customProps => {
-  const RootContent: any = customProps.state.rootContent ? customProps.state.rootContent : DefaultRootContent
+  const RootContent: any = customProps.state.rootContent || DefaultRootContent
   const customizer = (objValue:any, srcValue:any) => { if (isArray(objValue)) return srcValue }
   const props = mergeWith(Object.assign({}, ModuleConfig), Object.assign({}, customProps), customizer)
 
@@ -40,7 +40,7 @@ const AgiliteReact: React.FunctionComponent<ModuleConfigInterface> = customProps
           />
         ) : null}
       {props.state.tabNavigation.enabled ?
-        <CustomTabs
+        <TabNavigation
           {...props.state.tabNavigation}
           {...props} 
         />

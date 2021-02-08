@@ -20,10 +20,8 @@ interface TabInterface {
   }>
 }
 
-const _CustomTabs: React.FunctionComponent<TabInterface & ModuleConfigInterface> = props => {
+const _TabNavigation: React.FunctionComponent<TabInterface & ModuleConfigInterface> = props => {
   const CustomRootContent: any = props.state.rootContent || DefaultRootContent
-
-  console.log('Agilite React - Tabs')
 
   return (
     <Tabs
@@ -57,5 +55,5 @@ const _CustomTabs: React.FunctionComponent<TabInterface & ModuleConfigInterface>
   )
 }
 
-const CustomTabs = React.memo(_CustomTabs)
-export default CustomTabs
+const TabNavigation = React.memo(_TabNavigation)
+export default TabNavigation

@@ -5,11 +5,11 @@ import DefaultRootContent from '../components/DefaultRootContent'
 import { RightMenuInterface } from '../components/RightMenu'
 import { LeftMenuInterface } from '../components/LeftMenu'
 
-export interface TabChangeFunctionInterface {
+export interface TabChangeFunctionInterface { // TODO: This doesn't belong here
   (key: string): string | undefined | void
 }
 
-export interface TabCloseFunctionInterface {
+export interface TabCloseFunctionInterface { // TODO: This doesn't belong here
   (key: any, action: string): void | undefined
 }
 

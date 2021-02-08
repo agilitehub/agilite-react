@@ -34,7 +34,6 @@ export interface RightMenuInterface {
 }
 
 const _RightMenu: React.SFC<RightMenuInterface & ThemeInterface> = props => {
-  console.log('Agilite React - Right Menu')
   return (
     <Drawer
       title={<div style={{ color: props.secondaryLight ? props.secondaryLight : Theme.secondaryLight }}>{props.rightMenuTitle}</div>}

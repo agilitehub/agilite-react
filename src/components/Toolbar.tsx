@@ -17,7 +17,6 @@ interface ToolbarInterface {
 }
 
 const _Toolbar: React.SFC<ToolbarInterface & ThemeInterface & LeftMenuInterface & RightMenuInterface> = props => {
-  console.log('Agilite React - Toolbar')
   return (
     <Layout>
       <Header
