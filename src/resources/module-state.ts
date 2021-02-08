@@ -4,14 +4,7 @@ import Enums from './enums'
 import DefaultRootContent from '../components/DefaultRootContent'
 import { RightMenuInterface } from '../components/RightMenu'
 import { LeftMenuInterface } from '../components/LeftMenu'
-
-export interface TabChangeFunctionInterface { // TODO: This doesn't belong here
-  (key: string): string | undefined | void
-}
-
-export interface TabCloseFunctionInterface { // TODO: This doesn't belong here
-  (key: any, action: string): void | undefined
-}
+import { TabChangeFunctionInterface, TabCloseFunctionInterface } from '../../dist/resources/module-state.d';
 
 export interface ModuleConfigInterface {
   state: {
@@ -55,9 +48,9 @@ export const ModuleConfig: ModuleConfigInterface = {
       leftMenuEnabled: false,
       menuItems: [],
       visible: false,
-      onOpenLeftMenu: () => {},
-      onCloseLeftMenu: () => {},
-      handleLeftMenuItemClick: () => {},
+      onLeftMenuOpen: () => {},
+      onLeftMenuClose: () => {},
+      onLeftMenuItemClick: () => {},
       expandedMenuItems: []
     },
     rightMenu: {
@@ -65,9 +58,9 @@ export const ModuleConfig: ModuleConfigInterface = {
       rightMenuEnabled: false,
       menuItems: [],
       visible: false,
-      onOpenRightMenu: () => {},
-      onCloseRightMenu: () => {},
-      handleRightMenuItemClick: () => {},
+      onRightMenuOpen: () => {},
+      onRightMenuClose: () => {},
+      onRightMenuItemClick: () => {},
       expandedMenuItems: []
     },
     toolbar: {

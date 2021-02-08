@@ -27,9 +27,9 @@ export interface RightMenuInterface {
   rightMenuTitle: React.ReactNode,
   menuItems: Array<MenuItem>,
   visible: boolean,
-  onOpenRightMenu: onRightMenuOpen,
-  onCloseRightMenu: onRightMenuClose,
-  handleRightMenuItemClick: onMenuItemClick,
+  onRightMenuOpen: onRightMenuOpen,
+  onRightMenuClose: onRightMenuClose,
+  onRightMenuItemClick: onMenuItemClick,
   expandedMenuItems: Array<string>
 }
 
@@ -41,14 +41,14 @@ const _RightMenu: React.SFC<RightMenuInterface & ThemeInterface> = props => {
         closable={true}
         width={300}
         visible={props.visible}
-        onClose={props.onCloseRightMenu}
+        onClose={props.onRightMenuClose}
         headerStyle={{
           backgroundColor: props.primary ? props.primary : Theme.primary,
           color: props.secondaryLight ? props.secondaryLight : Theme.secondaryLight
         }}
       >
         <Menu
-          onClick={props.handleRightMenuItemClick}
+          onClick={props.onRightMenuItemClick}
           mode='inline'
           defaultOpenKeys={props.expandedMenuItems}
         >

@@ -27,9 +27,9 @@ export interface LeftMenuInterface {
   leftMenuTitle: React.ReactNode,
   menuItems: Array<MenuItem>,
   visible: boolean,
-  onOpenLeftMenu: onLeftMenuOpen,
-  onCloseLeftMenu: onLeftMenuClose,
-  handleLeftMenuItemClick: onMenuItemClick,
+  onLeftMenuOpen: onLeftMenuOpen,
+  onLeftMenuClose: onLeftMenuClose,
+  onLeftMenuItemClick: onMenuItemClick,
   expandedMenuItems: Array<string>
 }
 
@@ -41,13 +41,13 @@ const _LeftMenu: React.SFC<LeftMenuInterface & ThemeInterface> = props => {
       closable={true}
       width={300}
       visible={props.visible}
-      onClose={props.onCloseLeftMenu}
+      onClose={props.onLeftMenuClose}
       headerStyle={{
         backgroundColor: props.primary || Theme.primary
       }}
     >
       <Menu
-        onClick={props.handleLeftMenuItemClick}
+        onClick={props.onLeftMenuItemClick}
         mode='inline'
         defaultOpenKeys={props.expandedMenuItems}
       >

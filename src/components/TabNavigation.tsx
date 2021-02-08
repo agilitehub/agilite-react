@@ -1,8 +1,16 @@
 import * as React from 'react'
 import Tabs from 'antd/es/tabs'
 
-import { TabChangeFunctionInterface, TabCloseFunctionInterface, ModuleConfigInterface } from '../resources/module-state'
+import { ModuleConfigInterface } from '../resources/module-state'
 import DefaultRootContent from './DefaultRootContent'
+
+export interface TabChangeFunctionInterface {
+  (key: string): string | undefined | void
+}
+
+export interface TabCloseFunctionInterface {
+  (key: any, action: string): void | undefined
+}
 
 interface TabInterface {
   enabled: boolean,
