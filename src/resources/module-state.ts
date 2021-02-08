@@ -5,11 +5,11 @@ import DefaultRootContent from '../components/DefaultRootContent'
 import { RightMenuInterface } from '../components/RightMenu'
 import { LeftMenuInterface } from '../components/LeftMenu'
 
-interface TabChangeFunctionInterface {
+export interface TabChangeFunctionInterface {
   (key: string): string | undefined | void
 }
 
-interface TabCloseFunctionInterface {
+export interface TabCloseFunctionInterface {
   (key: any, action: string): void | undefined
 }
 
@@ -51,23 +51,23 @@ export const ModuleConfig: ModuleConfigInterface = {
     rootContent: DefaultRootContent,
     theme: Theme,
     leftMenu: {
-      title: 'Left Menu',
-      enabled: false,
+      leftMenuTitle: 'Left Menu',
+      leftMenuEnabled: false,
       menuItems: [],
       visible: false,
-      onOpen: () => {},
-      onClose: () => {},
-      handleMenuItemClick: () => {},
+      onOpenLeftMenu: () => {},
+      onCloseLeftMenu: () => {},
+      handleLeftMenuItemClick: () => {},
       expandedMenuItems: []
     },
     rightMenu: {
-      title: 'Right Menu',
-      enabled: false,
+      rightMenuTitle: 'Right Menu',
+      rightMenuEnabled: false,
       menuItems: [],
       visible: false,
-      onOpen: () => {},
-      onClose: () => {},
-      handleMenuItemClick: () => {},
+      onOpenRightMenu: () => {},
+      onCloseRightMenu: () => {},
+      handleRightMenuItemClick: () => {},
       expandedMenuItems: []
     },
     toolbar: {

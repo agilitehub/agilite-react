@@ -4,11 +4,6 @@ import Menu from 'antd/es/menu'
 
 import { Theme, ThemeInterface } from '../resources/theme';
 
-interface props {
-  theme: ThemeInterface,
-  rightMenu: RightMenuInterface
-}
-
 interface onRightMenuOpen {
   (event: any): any
 }
@@ -28,36 +23,37 @@ interface onMenuItemClick {
 }
 
 export interface RightMenuInterface {
-  enabled: boolean,
-  title: React.ReactNode,
+  rightMenuEnabled: boolean,
+  rightMenuTitle: React.ReactNode,
   menuItems: Array<MenuItem>,
   visible: boolean,
-  onOpen: onRightMenuOpen,
-  onClose: onRightMenuClose,
-  handleMenuItemClick: onMenuItemClick,
+  onOpenRightMenu: onRightMenuOpen,
+  onCloseRightMenu: onRightMenuClose,
+  handleRightMenuItemClick: onMenuItemClick,
   expandedMenuItems: Array<string>
 }
 
-const RightMenu: React.SFC<props> = props => {
+const _RightMenu: React.SFC<RightMenuInterface & ThemeInterface> = props => {
+  console.log('Agilite React - Right Menu')
   return (
     <Drawer
-      title={<div style={{ color: props.theme.secondaryLight ? props.theme.secondaryLight : Theme.secondaryLight }}>{props.rightMenu.title}</div>}
+      title={<div style={{ color: props.secondaryLight ? props.secondaryLight : Theme.secondaryLight }}>{props.rightMenuTitle}</div>}
         placement='right'
         closable={true}
         width={300}
-        visible={props.rightMenu.visible}
-        onClose={props.rightMenu.onClose}
+        visible={props.visible}
+        onClose={props.onCloseRightMenu}
         headerStyle={{
-          backgroundColor: props.theme.primary ? props.theme.primary : Theme.primary,
-          color: props.theme.secondaryLight ? props.theme.secondaryLight : Theme.secondaryLight
+          backgroundColor: props.primary ? props.primary : Theme.primary,
+          color: props.secondaryLight ? props.secondaryLight : Theme.secondaryLight
         }}
       >
         <Menu
-          onClick={props.rightMenu.handleMenuItemClick}
+          onClick={props.handleRightMenuItemClick}
           mode='inline'
-          defaultOpenKeys={props.rightMenu.expandedMenuItems}
+          defaultOpenKeys={props.expandedMenuItems}
         >
-          {props.rightMenu.menuItems.map(child1 => {
+          {props.menuItems.map(child1 => {
             if (child1.children && child1.children.length > 0) {
               return (
                 <Menu.SubMenu
@@ -117,4 +113,5 @@ const RightMenu: React.SFC<props> = props => {
   )
 }
 
+const RightMenu = React.memo(_RightMenu)
 export default RightMenu

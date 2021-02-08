@@ -2,12 +2,7 @@ import * as React from 'react'
 import Drawer from 'antd/es/drawer'
 import Menu from 'antd/es/menu'
 
-import { Theme, ThemeInterface } from '../resources/theme';
-
-interface props {
-  theme: ThemeInterface,
-  leftMenu: LeftMenuInterface
-}
+import { Theme, ThemeInterface } from '../resources/theme'
 
 interface onLeftMenuOpen {
   (event: any): any
@@ -28,35 +23,36 @@ interface onMenuItemClick {
 }
 
 export interface LeftMenuInterface {
-  enabled: boolean,
-  title: React.ReactNode,
+  leftMenuEnabled: boolean,
+  leftMenuTitle: React.ReactNode,
   menuItems: Array<MenuItem>,
   visible: boolean,
-  onOpen: onLeftMenuOpen,
-  onClose: onLeftMenuClose,
-  handleMenuItemClick: onMenuItemClick,
+  onOpenLeftMenu: onLeftMenuOpen,
+  onCloseLeftMenu: onLeftMenuClose,
+  handleLeftMenuItemClick: onMenuItemClick,
   expandedMenuItems: Array<string>
 }
 
-const LeftMenu: React.SFC<props> = props => {
+const _LeftMenu: React.SFC<LeftMenuInterface & ThemeInterface> = props => {
+  console.log('Agilite React - Left Menu')
   return (
     <Drawer
-      title={<div style={{ color: props.theme.secondaryLight ? props.theme.secondaryLight : Theme.secondaryLight }}>{props.leftMenu.title}</div>}
+      title={<div style={{ color: props.secondaryLight || Theme.secondaryLight }}>{props.leftMenuTitle}</div>}
       placement='left'
       closable={true}
       width={300}
-      visible={props.leftMenu.visible}
-      onClose={props.leftMenu.onClose}
+      visible={props.visible}
+      onClose={props.onCloseLeftMenu}
       headerStyle={{
-        backgroundColor: props.theme.primary ? props.theme.primary : Theme.primary
+        backgroundColor: props.primary || Theme.primary
       }}
     >
       <Menu
-        onClick={props.leftMenu.handleMenuItemClick}
+        onClick={props.handleLeftMenuItemClick}
         mode='inline'
-        defaultOpenKeys={props.leftMenu.expandedMenuItems}
+        defaultOpenKeys={props.expandedMenuItems}
       >
-        {props.leftMenu.menuItems.map(child1 => {
+        {props.menuItems.map(child1 => {
           if (child1.children && child1.children.length > 0) {
             return (
               <Menu.SubMenu
@@ -116,4 +112,5 @@ const LeftMenu: React.SFC<props> = props => {
   )
 }
 
+const LeftMenu = React.memo(_LeftMenu)
 export default LeftMenu

@@ -2,37 +2,47 @@ import * as React from 'react'
 import Layout from 'antd/es/layout'
 import MenuOutlined from '@ant-design/icons/MenuOutlined'
 
-import { ModuleConfigInterface } from '../resources/module-state'
-import { Theme } from '../resources/theme'
+import { Theme, ThemeInterface } from '../resources/theme'
+import { LeftMenuInterface } from './LeftMenu'
+import { RightMenuInterface } from './RightMenu'
 
 const { Header } = Layout
 
-const Toolbar: React.SFC<ModuleConfigInterface> = props => {
+interface ToolbarInterface {
+  enabled: boolean,
+  title: React.ReactNode | string,
+  customMenus: {
+    content: React.ReactNode,
+  }
+}
+
+const _Toolbar: React.SFC<ToolbarInterface & ThemeInterface & LeftMenuInterface & RightMenuInterface> = props => {
+  console.log('Agilite React - Toolbar')
   return (
     <Layout>
       <Header
         style={{
           height: '40px',
           fontSize: '13pt',
-          backgroundColor: props.state.theme.primary ? props.state.theme.primary : Theme.primary,
-          color: props.state.theme.secondaryLight ? props.state.theme.secondaryLight : Theme.secondaryLight
+          backgroundColor: props.primary || Theme.primary,
+          color: props.secondaryLight || Theme.secondaryLight
         }}
       >
         <div style={{ marginTop: '10px' }}>
           <div>
-            {props.state.leftMenu.enabled ? (
-              <MenuOutlined style={{ float: 'left', marginLeft: '-30px', cursor: 'pointer' }} onClick={props.state.leftMenu.onOpen} />
+            {props.leftMenuEnabled ? (
+              <MenuOutlined style={{ float: 'left', marginLeft: '-30px', cursor: 'pointer' }} onClick={props.onOpenLeftMenu} />
             ) : null}
           </div>
           <div style={{ float: 'left', marginTop: '-23px', marginLeft: '20px' }}>
-            {props.state.toolbar.title}
+            {props.title}
           </div>
           <div style={{ float: 'right', marginTop: '-23px', cursor: 'pointer', marginRight: '10px' }} >
-            {props.state.toolbar.customMenus.content}
+            {props.customMenus.content}
           </div>
           <div>
-            {props.state.rightMenu.enabled ? (
-              <MenuOutlined style={{ float: 'right', marginRight: props.state.toolbar.customMenus.content ? '-60px' : '-40px', marginLeft: '50px', cursor: 'pointer' }} onClick={props.state.rightMenu.onOpen} />
+            {props.rightMenuEnabled ? (
+              <MenuOutlined style={{ float: 'right', marginRight: props.customMenus.content ? '-60px' : '-40px', marginLeft: '50px', cursor: 'pointer' }} onClick={props.onOpenRightMenu} />
             ) : null}
           </div>
         </div>
@@ -41,4 +51,5 @@ const Toolbar: React.SFC<ModuleConfigInterface> = props => {
   )
 }
 
+const Toolbar  = React.memo(_Toolbar)
 export default Toolbar

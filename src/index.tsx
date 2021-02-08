@@ -12,32 +12,38 @@ import DefaultRootContent from './components/DefaultRootContent'
 
 import 'antd/dist/antd.css'
 
-const _AgiliteReact: React.FunctionComponent<ModuleConfigInterface> = customProps => {
+const AgiliteReact: React.FunctionComponent<ModuleConfigInterface> = customProps => {
   const RootContent: any = customProps.state.rootContent ? customProps.state.rootContent : DefaultRootContent
-  const customizer = (objValue:any, srcValue:any) => {
-    if (isArray(objValue)) return srcValue
-  }
-  const props = mergeWith(ModuleConfig, customProps, customizer)
+  const customizer = (objValue:any, srcValue:any) => { if (isArray(objValue)) return srcValue }
+  const props = mergeWith(Object.assign({}, ModuleConfig), Object.assign({}, customProps), customizer)
 
   return (
     <div className='App'>
       {props.state.toolbar.enabled ?
-        <Toolbar state={props.state} />
+        <Toolbar
+          {...props.state.leftMenu}
+          {...props.state.rightMenu}
+          {...props.state.toolbar}
+          {...props.state.theme}
+        />
         : null}
-        {props.state.leftMenu.enabled ? (
+        {props.state.leftMenu.leftMenuEnabled ? (
           <LeftMenu
-            leftMenu={props.state.leftMenu}
-            theme={props.state.theme}
+            {...props.state.leftMenu}
+            {...props.state.theme}
           />
         ) : null}
-        {props.state.rightMenu.enabled ? (
+        {props.state.rightMenu.rightMenuEnabled ? (
           <RightMenu
-            rightMenu={props.state.rightMenu}
-            theme={props.state.theme}
+            {...props.state.rightMenu}
+            {...props.state.theme}
           />
         ) : null}
       {props.state.tabNavigation.enabled ?
-        <CustomTabs state={props.state} />
+        <CustomTabs
+          {...props.state.tabNavigation}
+          {...props} 
+        />
         :
         <RootContent />
       }
@@ -45,6 +51,6 @@ const _AgiliteReact: React.FunctionComponent<ModuleConfigInterface> = customProp
   )
 }
 
-_AgiliteReact.defaultProps = ModuleConfig
+AgiliteReact.defaultProps = ModuleConfig
 
-export const AgiliteReact = React.memo(_AgiliteReact)
+export default AgiliteReact

@@ -1,30 +1,48 @@
 import * as React from 'react'
 import Tabs from 'antd/es/tabs'
 
-import { ModuleConfigInterface } from '../resources/module-state'
+import { TabChangeFunctionInterface, TabCloseFunctionInterface, ModuleConfigInterface } from '../resources/module-state'
 import DefaultRootContent from './DefaultRootContent'
 
-const CustomTabs: React.FunctionComponent<ModuleConfigInterface> = props => {
-  const RootContent: any = props.state.rootContent ? props.state.rootContent : DefaultRootContent
+interface TabInterface {
+  enabled: boolean,
+  rootTabKey: string,
+  rootTabTitle: React.ReactNode | string,
+  activeKey: string,
+  animated: boolean,
+  onTabChange: TabChangeFunctionInterface,
+  onTabClose: TabCloseFunctionInterface,
+  tabs: Array<{
+    key: string,
+    closeable: boolean,
+    title: string,
+    content: React.ReactNode,
+  }>
+}
+
+const _CustomTabs: React.FunctionComponent<TabInterface & ModuleConfigInterface> = props => {
+  const CustomRootContent: any = props.state.rootContent || DefaultRootContent
+
+  console.log('Agilite React - Tabs')
 
   return (
     <Tabs
-      activeKey={props.state.tabNavigation.activeKey}
-      animated={props.state.tabNavigation.animated}
+      activeKey={props.activeKey}
+      animated={props.animated}
       style={{ margin: 10 }}
       type='editable-card'
       hideAdd
-      onChange={props.state.tabNavigation.onTabChange}
-      onEdit={props.state.tabNavigation.onTabClose}
+      onChange={props.onTabChange}
+      onEdit={props.onTabClose}
     >
       <Tabs.TabPane
-        key={props.state.tabNavigation.rootTabKey}
+        key={props.rootTabKey}
         closable={false}
-        tab={props.state.tabNavigation.rootTabTitle}
+        tab={props.rootTabTitle}
       >
-        <RootContent />
+        <CustomRootContent />
       </Tabs.TabPane>
-      {props.state.tabNavigation.tabs.map(tab => {
+      {props.tabs.map(tab => {
         return (
           <Tabs.TabPane
             key={tab.key}
@@ -39,4 +57,5 @@ const CustomTabs: React.FunctionComponent<ModuleConfigInterface> = props => {
   )
 }
 
+const CustomTabs = React.memo(_CustomTabs)
 export default CustomTabs
