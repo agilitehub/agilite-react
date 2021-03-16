@@ -1,7 +1,7 @@
 {
   "name": "agilite-react",
   "description": "Agilit-e React Module",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "main": "dist/index.js",
   "types": "dist",
   "scripts": {
