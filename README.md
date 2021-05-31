@@ -17,7 +17,7 @@ npm install agilite-react
 
 **Import the **AgiliteReact** Component**
 ```js
-import { AgiliteReact } from 'agilite-react'
+import AgiliteReact from 'agilite-react'
 ```
 
 **Basic Renderding**
@@ -32,7 +32,7 @@ function App () {
 
 **Custom Rendering**
 In order to customise what is rendered use the following properties
-- *[config]()* [object]: Root property containing the application configuration
+- *[state]()* [object]: Root property containing the application configuration
   - *[rootContent]()* [React.ReactNode]: Main content that is rendered if tab navigation is disabled
   - *[theme]()* [object]: Theme object - default theme below
   ```js
@@ -46,8 +46,8 @@ In order to customise what is rendered use the following properties
   }
   ```
   - *[leftMenu]()* [object]: Left menu properties
-    - *[title]()* [string]: Menu title
-    - *[enabled]()* [boolean]: Enable/Disable Menu
+    - *[leftMenuTitle]()* [string]: Menu title
+    - *[leftMenuEnabled]()* [boolean]: Enable/Disable Menu
     - *[menuItems]()*: Array of Menu Item Objects, example below
       ```js
       [
@@ -65,9 +65,9 @@ In order to customise what is rendered use the following properties
       ```
       > Note: Menu items can contain children properties to nest sub menus
     - *[visible]()*: [boolean]: Control when the menu drawer is open or closed
-    - *[onOpen]()*: [function(event)]: This function is called whenever the menu is opened, state can be used here to set the *visible* property accordingly
-    - *[onClose]()*: [function(event)]: This function is called whenever the menu is closed, state can be used here to set the *visible* property accordingly
-    - *[handleMenuItemClick]()*: [function(event)]: This function is called whenever a menu item is clicked, the event contains a *key* property which matches the key of the clicked menu item
+    - *[onLeftMenuOpen]()*: [function(event)]: This function is called whenever the menu is opened, state can be used here to set the *visible* property accordingly
+    - *[onLeftMenuClose]()*: [function(event)]: This function is called whenever the menu is closed, state can be used here to set the *visible* property accordingly
+    - *[onLeftMenuItemClick]()*: [function(event)]: This function is called whenever a menu item is clicked, the event contains a *key* property which matches the key of the clicked menu item
     - *[expandedMenuItems]()* [array(string)]: Array containing the sub menu item key(s) that have to be expanded by default
       > Note: All the 'leftMenu' rules apply for the 'rightMenu'
   - *[toolbar]()* [object]: Toolbar at the top of the application
@@ -76,14 +76,13 @@ In order to customise what is rendered use the following properties
     - *[customMenus]()* [object]: Custom menus within the toolbar (see example below)
     ```js
     customMenus: {
-      content: <SignOutIcon /> // React.ReactNode || String
+      content: SignOutIcon // React.ReactNode || String
     }
     ```
   - *[tabNavigation]()* [object]: Application tab navigation configuration
     - *[enabled]()* [boolean]: Whether tab navigation is enabled/disabled
     - *[activeKey]()* [string]: Active tab key
     - *[animated]()* [boolean]: Animated Tabs
-    - *[rootTabContent]()* [React.ReactNode]: The content of the main/root tab
     - *[rootTabKey]()* [string]: Key of the root tab
     - *[rootTabTitle]()* [string]: Title of the root tab
     - *[tabs]()* [array]: Array containing tab objects (below is an example of a tab object)
@@ -92,7 +91,7 @@ In order to customise what is rendered use the following properties
       key: 'users', // string - Tab key
       closeable: true, // boolean - Whether the tab is closeable
       title: 'Users', // string - Tab title
-      content: <Users /> // React.ReactNode - The content of the tab
+      content: Users // React.ReactNode - The content of the tab
     }
     ```
     - *[onTabChange]()* [function(key)]: This function is called whenever a tab is clicked, the clicked tab key is passed to the function
@@ -107,23 +106,23 @@ In order to customise what is rendered use the following properties
   rootContent: <div>Root Content</div>,
   theme: {},
   leftMenu: {
-    title: 'Left Menu',
-    enabled: true,
+    leftMenuTitle: 'Left Menu',
+    leftMenuEnabled: true,
     menuItems: [],
     visible: false,
-    onOpen: () => {},
-    onClose: () => {},
-    handleMenuItemClick: () => {},
+    onLeftMenuOpen: () => {},
+    onLeftMenuClose: () => {},
+    onLeftMenuItemClick: () => {},
     expandedMenuItems: []
   },
   rightMenu: {
-    title: 'Right Menu',
-    enabled: true,
+    rightMenuTitle: 'Right Menu',
+    rightMenuEnabled: true,
     menuItems: [],
     visible: false,
-    onOpen: () => {},
-    onClose: () => {},
-    handleMenuItemClick: () => {},
+    onRightMenuOpen: () => {},
+    onRightMenuClose: () => {},
+    onRightMenuItemClick: () => {},
     expandedMenuItems: []
   },
   toolbar: {
